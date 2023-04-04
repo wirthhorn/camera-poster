@@ -1,0 +1,27 @@
+{
+  "name": "@pimred/camera-poster",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/dist/camera.es.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": {
+    "name": "Armin Emmert",
+    "email": "emmertarmin@gmail.com",
+    "url": "https://www.wirth-horn.de/"
+  },
+  "devDependencies": {
+    "eslint": "^8.37.0",
+    "eslint-config-semistandard": "^17.0.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "vite": "^4.2.0"
+  },
+  "license": "MIT"
+}
