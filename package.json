@@ -1,7 +1,7 @@
 {
   "name": "@pimred/camera-poster",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "src/dist/camera.es.js",
   "scripts": {
@@ -23,5 +23,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "vite": "^4.2.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "src/dist"
+  ]
 }
