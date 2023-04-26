@@ -16,6 +16,7 @@ To use Camera Poster, you need to import it into your project and call the setup
 
 ```javascript
 import { setupCamera } from '@pimred/camera-poster'
+import '@pimred/camera-poster/style.css'
 
 /**
  * Sets up a camera preview and allows the user to take a photo to be uploaded to a specified URL.

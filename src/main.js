@@ -1,4 +1,3 @@
-// import '@/style.css'
 import { setupCamera } from '@/camera.js'
 
 document.querySelector('#app').innerHTML = `
