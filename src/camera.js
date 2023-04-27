@@ -38,14 +38,14 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
    */
   function buildHTML (element) {
     const htmlString = `
-        <video class="video">Video stream not available.</video>
+        <video class="video">Video stream steht nicht zur Verfügung.</video>
         <canvas class="canvas"> </canvas>
         <div class="output">
           <img class="photo" alt="The screen capture will appear in this box." />
         </div>
-        <button class="shutterButton">Take photo</button>
-        <button class="submitButton">Send</button>
-        <button class="closeButton">Close</button>
+        <button class="shutterButton">Foto aufnehmen</button>
+        <button class="submitButton">Senden</button>
+        <button class="closeButton">Schließen</button>
     `
     const div = document.createElement('div')
     div.classList.add(styles.cameraWrapper)
@@ -155,7 +155,14 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
       console.error('getUserMedia is not supported on this browser or connection type. Please use an HTTPS connection.')
     } else {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: false })
+        .getUserMedia({
+          audio: false,
+          video: {
+            width: { min: 1024, ideal: 1280, max: 1920 },
+            height: { min: 576, ideal: 720, max: 1080 },
+            facingMode: 'environment'
+          }
+        })
         .then((stream) => {
           video.srcObject = stream
           video.play()
@@ -225,7 +232,7 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
       return true
     }
     previewActive = true
-    shutterButton.innerHTML = 'Discard'
+    shutterButton.innerHTML = 'Verwerfen'
     photo.style.display = 'block'
     return false
   }
