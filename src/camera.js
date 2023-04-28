@@ -23,9 +23,10 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
   let video = null
   let canvas = null
   let photo = null
+  let closeButton = null
+  let repeatButton = null
   let shutterButton = null
   let submitButton = null
-  let closeButton = null
   let camera = null
 
   let previewActive = false
@@ -38,14 +39,15 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
    */
   function buildHTML (element) {
     const htmlString = `
-        <video class="video">Video stream steht nicht zur Verfügung.</video>
+        <video class="video" autoPlay="true" playsInline="true" muted="true">Video stream steht nicht zur Verfügung.</video>
         <canvas class="canvas"> </canvas>
         <div class="output">
           <img class="photo" alt="The screen capture will appear in this box." />
         </div>
-        <button class="shutterButton">Foto aufnehmen</button>
-        <button class="submitButton">Senden</button>
         <button class="closeButton">Schließen</button>
+        <button class="repeatButton">Wiederholen</button>
+        <button class="shutterButton"></button>
+        <button class="submitButton">Senden</button>
     `
     const div = document.createElement('div')
     div.classList.add(styles.cameraWrapper)
@@ -140,16 +142,20 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
     photo = document.querySelector('.photo')
     photo.classList.add(styles.photo)
 
+    closeButton = document.querySelector('.closeButton')
+    closeButton.classList.add(styles.cameraModuleButton, styles.closeButton)
+    closeButton.addEventListener('click', closeCamera, false)
+
+    repeatButton = document.querySelector('.repeatButton')
+    repeatButton.classList.add(styles.cameraModuleButton, styles.repeatButton)
+    repeatButton.addEventListener('click', togglePreview, false)
+
     shutterButton = document.querySelector('.shutterButton')
     shutterButton.classList.add(styles.cameraModuleButton, styles.shutterButton)
 
     submitButton = document.querySelector('.submitButton')
     submitButton.classList.add(styles.cameraModuleButton, styles.submitButton)
     submitButton.addEventListener('click', handleRequest, false)
-
-    closeButton = document.querySelector('.closeButton')
-    closeButton.classList.add(styles.cameraModuleButton, styles.closeButton)
-    closeButton.addEventListener('click', closeCamera, false)
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       console.error('getUserMedia is not supported on this browser or connection type. Please use an HTTPS connection.')
@@ -226,13 +232,19 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
   function togglePreview () {
     if (previewActive) {
       previewActive = false
-      shutterButton.innerHTML = 'Take photo'
+      closeButton.style.display = 'block'
+      repeatButton.style.display = 'none'
+      shutterButton.style.display = 'block'
+      submitButton.style.display = 'none'
       // hide photo
       photo.style.display = 'none'
       return true
     }
     previewActive = true
-    shutterButton.innerHTML = 'Verwerfen'
+    closeButton.style.display = 'none'
+    repeatButton.style.display = 'block'
+    shutterButton.style.display = 'none'
+    submitButton.style.display = 'block'
     photo.style.display = 'block'
     return false
   }
