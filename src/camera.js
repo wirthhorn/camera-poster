@@ -46,7 +46,7 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
         </div>
         <button class="closeButton">Schließen</button>
         <button class="repeatButton">Wiederholen</button>
-        <button class="shutterButton"></button>
+        <button class="shutterButton"><div style="widtH: 100%; height: 100%; border-radius: 50%; background-color: #f4f4f4;"></div></button>
         <button class="submitButton">Senden</button>
     `
     const div = document.createElement('div')
