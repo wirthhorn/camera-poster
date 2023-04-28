@@ -43,10 +43,12 @@ Attaches an event listener to the specified HTML element, which will spawn the c
 
 ## Development
 
-First, build the dist files
+1. **Increment version** in package.json
+
+2. Build the dist files
 `npm run build`
 
-Then, publish to npm
+3. Publish to npm
 `npm publish --access public`
 
 ## License

@@ -1,7 +1,7 @@
 {
   "name": "@pimred/camera-poster",
   "private": false,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "main": "src/dist/camera.es.js",
   "scripts": {
