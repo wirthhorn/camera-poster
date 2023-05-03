@@ -27,6 +27,7 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
   let repeatButton = null
   let shutterButton = null
   let submitButton = null
+  let loadingSpinner = null
   let camera = null
 
   let previewActive = false
@@ -48,6 +49,7 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
         <button class="repeatButton">Wiederholen</button>
         <button class="shutterButton"><div style="widtH: 100%; height: 100%; border-radius: 50%; background-color: #f4f4f4;"></div></button>
         <button class="submitButton">Senden</button>
+        <div class="loadingSpinner"></div>
     `
     const div = document.createElement('div')
     div.classList.add(styles.cameraWrapper)
@@ -85,6 +87,9 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
     const formData = new FormData()
     formData.append('document', blob, 'image.jpg')
 
+    loadingSpinner.style.display = 'block'
+    submitButton.style.display = 'none'
+
     fetch(postUrl, {
       method: 'POST',
       cache: 'no-cache',
@@ -92,6 +97,8 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
       body: formData
     })
       .then(response => {
+        loadingSpinner.style.display = 'none'
+        submitButton.style.display = 'block'
         if (!response.ok) {
           throw new Error(`HTTP error ${response.status}`)
         }
@@ -101,7 +108,11 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
         closeCamera()
         callbackFunction(data)
       })
-      .catch(error => console.error(error))
+      .catch(error => {
+        loadingSpinner.style.display = 'none'
+        submitButton.style.display = 'block'
+        console.error(error)
+      })
   }
 
   /**
@@ -156,6 +167,9 @@ export function setupCamera (spawnerButton, postUrl, callbackFunction) {
     submitButton = document.querySelector('.submitButton')
     submitButton.classList.add(styles.cameraModuleButton, styles.submitButton)
     submitButton.addEventListener('click', handleRequest, false)
+
+    loadingSpinner = document.querySelector('.loadingSpinner')
+    loadingSpinner.classList.add(styles.loadingSpinner)
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       console.error('getUserMedia is not supported on this browser or connection type. Please use an HTTPS connection.')

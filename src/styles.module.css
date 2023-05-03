@@ -90,3 +90,22 @@
   font-family: "Lucida Grande", "Arial", sans-serif;
   width: 760px;
 }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingSpinner {
+  --size: 2rem;
+  width: var(--size);
+  height: var(--size);
+  border: calc(var(--size) / 2) solid transparent;
+  border-top: calc(var(--size) / 2) solid #276DA8;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  top: calc(50% - var(--size));
+  left: calc(50% - var(--size));
+  display: none;
+}
